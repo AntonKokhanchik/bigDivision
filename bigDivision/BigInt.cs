@@ -331,7 +331,8 @@ namespace bigDivision
 			for (int i = 0; i < divident.module.Count(); i++)
 			{
 				rest.module.Enqueue(divident.module.ElementAt(i)); // промежуточный остаток
-																 // пока промежуточный остаток меньше делителя ничего не делаем
+				rest.UnNull();
+																   // пока промежуточный остаток меньше делителя, пишем к частному 0
 				if (rest >= divider)
 					for (int j = 1; j <= 10; j++) // цикл, формирующий цифры частного
 					{
@@ -351,12 +352,14 @@ namespace bigDivision
 						}
 						tmp += divider; // прибавляем сам делитель, пока не станет больше остатка
 					}
+				else
+					quotient.module.Enqueue(0);
 			} // цифры делимого заканчиваются и остаток меньше делимого, цикл завершается
 
 			if (divident.sign != _divider.sign)
 				quotient.sign = Sign.minus;
 
-			if (rest.module. Count() == 0)
+			if (rest.module.Count() == 0)
 				rest.module.Enqueue(0);
 			if (quotient.module.Count() == 0)
 				quotient.module.Enqueue(0);
